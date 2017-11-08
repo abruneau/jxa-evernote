@@ -1,0 +1,42 @@
+{
+  "name": "jxa-evernote",
+  "version": "1.0.0",
+  "description": "jxa-evernote",
+  "license": "MIT",
+  "repository": "https://github.com/abruneau/jxa-evernote.git",
+  "author": "Antonin Bruneau",
+  "keywords": [
+    "jxa, npm, evernote"
+  ],
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "clean": "rimraf lib",
+    "lint": "tslint --force --format verbose \"src/**/*.ts\"",
+    "build": "npm run clean && npm run lint && echo Using TypeScript && tsc --version && tsc --pretty && typedoc --theme default --out ./docs ./src",
+    "test": "npm run build && mocha --compilers ts:ts-node/register --recursive test/**/*-spec.ts",
+    "watch": "npm run build -- --watch",
+    "watch:test": "npm run test -- --watch"
+  },
+  "dependencies": {
+    "osa2": "^0.2.2"
+  },
+  "devDependencies": {
+    "@types/chai": "^3.0.0",
+    "@types/mocha": "^2.0.0",
+    "@types/node": "6.0.31",
+    "chai": "^3.0.0",
+    "mocha": "^3.0.0",
+    "rimraf": "^2.0.0",
+    "ts-node": "^1.0.0",
+    "tslint": "^4.0.0",
+    "typedoc": "^0.9.0",
+    "typescript": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=4.0.0"
+  }
+}
