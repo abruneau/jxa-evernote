@@ -96,10 +96,27 @@ export class Note {
   public static findByTitle(title: string, notebook: string): Promise<Note> {
     return osa((title, notebook) => {
       const Evernote = Application("Evernote");
-      const query = `intitle:${title} notebook:${notebook}`.replace(/'/g, "\\\'");
-      const matches = Evernote.findNotes(query);
-      if (matches) {
-        return matches[0];
+      const query = 'intitle:"' + title + '" notebook:"' + notebook + '"';
+      const matches = Evernote.findNotes(query.replace(/'/g, "\\\'"));
+      if (matches.length) {
+        return {
+          id: matches[0].id(),
+          title: matches[0].title(),
+          creationDate: matches[0].creationDate(),
+          modificationDate: matches[0].modificationDate(),
+          subjectDate: matches[0].subjectDate(),
+          sourceURL: matches[0].sourceURL(),
+          latitude: matches[0].latitude(),
+          longitude: matches[0].longitude(),
+          altitude: matches[0].altitude(),
+          enmlContent: matches[0].enmlContent(),
+          htmlContent: matches[0].htmlContent(),
+          noteLink: matches[0].noteLink(),
+          reminderTime: matches[0].reminderTime(),
+          reminderDoneTime: matches[0].reminderDoneTime(),
+          reminderOrder: matches[0].reminderOrder(),
+          notebook: matches[0].notebook.name(),
+        };
       } else {
         return null;
       }
