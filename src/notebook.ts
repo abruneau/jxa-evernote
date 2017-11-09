@@ -25,7 +25,7 @@ export class Notebook {
       const Evernote = Application("Evernote");
       const notebook = Evernote.notebooks.byName(name.replace(/'/g, "\\\'"));
       if (!notebook.exists()) {
-        throw new Error(`Notebook ${name} note found`);
+        throw new Error(`Notebook ${name} not found`);
       }
       return {
         default: notebook.default(),

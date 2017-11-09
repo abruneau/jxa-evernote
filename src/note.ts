@@ -93,6 +93,19 @@ export class Note {
     throw new Error("You must specify 'text', 'html', or 'enml' to create a note");
   }
 
+  public static findByTitle(title: string, notebook: string): Promise<Note> {
+    return osa((title, notebook) => {
+      const Evernote = Application("Evernote");
+      const query = `intitle:${title} notebook:${notebook}`.replace(/'/g, "\\\'");
+      const matches = Evernote.findNotes(query);
+      if (matches) {
+        return matches[0];
+      } else {
+        return null;
+      }
+    })(title, notebook).then((note) => new Note(note));
+  }
+
   public id: string;
   public title: string;
   public creationDate: Date;
