@@ -1,5 +1,6 @@
 export declare class Note {
     static create(title: string, notebook: string, text?: string, html?: string, enml?: string): Promise<Note>;
+    static findByTitle(title: string, notebook: string): Promise<Note>;
     id: string;
     title: string;
     creationDate: Date;
